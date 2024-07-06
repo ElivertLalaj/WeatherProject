@@ -1,0 +1,30 @@
+<div class="container">
+    <h1>Weather Forecast</h1>
+    <input [(ngModel)]="city" placeholder="Enter city name">
+    <button (click)="getWeather()">Get Weather</button>
+    <button (click)="useMyLocation()">Use My Location</button>
+    
+    <!-- Show ELivert div when getWeather() is called -->
+    <div *ngIf="weather">
+        <h2>Current Weather: {{ weather.current.weather[0].description }}</h2>
+        <p>Temperature: {{ weather.current.temp }}°C</p>
+        <p>Humidity: {{ weather.current.humidity }}%</p>
+        <p>Wind Speed: {{ weather.current.wind_speed }} m/s</p>
+        <img [src]="'http://openweathermap.org/img/wn/' + weather.current.weather[0].icon + '@2x.png'"
+            alt="Weather icon">
+        
+        <h3>Daily Forecast</h3>
+        <div *ngFor="let day of weather.daily">
+            <p>{{ day.dt * 1000 | date: 'fullDate' }}: {{ day.weather[0].description }} - Temp: {{ day.temp.day }}°C</p>
+        </div>
+    </div>
+    
+    <div *ngIf="error" class="error">
+        {{ error }}
+    </div>
+    
+    <!-- Show ELivert div when getWeather() is called -->
+    <!-- <div *ngIf="getWeather()">
+        <h1>ELivert</h1>
+    </div> -->
+</div>
